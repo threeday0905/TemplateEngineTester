@@ -44,7 +44,6 @@ li.sport mark {
 
 section.left, section.right {
   width: 50%;
-
 }
 
 section.left {
@@ -57,6 +56,15 @@ section.right {
 section.left fieldset, section.right fieldset {
   height: 180px;
 }
+
+@media screen and (max-width: 1600px) {
+  section.left, section.right {
+    display: block;
+    float: none;
+    width: 100%;
+  }
+}
+
 fieldset {
   padding: 10px 20px 20px 20px;
   margin: 0px 15px 20px 15px;

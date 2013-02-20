@@ -96,7 +96,7 @@
   Source.genControler = function() {
     var key, value, id,
       $container = $('<div />'),
-      $controler = $('<div />').html('<label>Change Num:<lable>').appendTo($container),
+      $controler = $('<div />').html('<label>Row Num:<lable>').appendTo($container),
       $link = $('<div />').html('<label>Watch Source: <lable>').appendTo($container),
       fixRadio = function() { this.blur(); this.focus(); },
       switchTo = function() { Source.switchToNum($(this).val()); };

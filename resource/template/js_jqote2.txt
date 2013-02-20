@@ -1,0 +1,8 @@
+﻿<h1><%= this.header %></h1>
+<ul>
+  <% for (var i=0,n=this.catalog.length; i < n; i++) { %>
+    <li class="<%=this.catalog[i].type%>">
+      <mark><%=this.catalog[i].year%></mark> - <span><%=this.catalog[i].title%></span> - <span><%=this.catalog[i].artist%></span>
+    </li>
+  <% } %>
+</ul>

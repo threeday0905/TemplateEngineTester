@@ -1,0 +1,11 @@
+﻿{ 
+  "h1": "header",
+  "li": {
+    "cd<-catalog": {
+      "@class": "cd.type",
+      "mark": "cd.year",
+      "span.title": "cd.title",
+      "span.artist": "cd.artist"
+    }
+  }
+}

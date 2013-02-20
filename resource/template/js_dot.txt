@@ -1,0 +1,8 @@
+﻿<h1>{{=it.header}}</h1>
+<ul>
+  {{~it.catalog : value:index }}
+    <li class="{{=value.type}}">
+      <mark>{{=value.year}}</mark> - <span>{{=value.title}}</span> - <span>{{=value.artist}}</span>
+    </li>
+  {{~}}
+</ul>

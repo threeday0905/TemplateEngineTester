@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="ie6 ielt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7 ielt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8">       <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="ie9">       <![endif]-->
+<!--[if !(IE) ]><!--> <html lang="en"> <!--<![endif]-->
+
+  <head>
+    <meta charset="utf-8" />
+    <title>Template Engine - Sample Testing</title>
+    
+    <link rel="stylesheet" href="./style/reset.css" media="screen" />
+    <link rel="stylesheet" href="./style/main.css" media="screen" />
+    <script src="./library/jquery.js"></script>
+    <script data-main="./module/" src="./library/require.js"></script>
+
+    <!--[if lt IE 9]>
+      <script src="./library/iesucks/html5shiv.min.js"></script>
+    <![endif]-->
+    <script src="./module/sources.js"></script>
+  </head>
+  
+  <body>
+    <a href="index.html" target="_blank" class="button green nav">Performance Testing</a>
+    <h1>Template Engine - Sample Testing</h1>
+    <section>
+      <fieldset id="button">
+        <legend>Methods</legend>
+      </fieldset>
+    </section>
+    
+    <section class="left">
+      <fieldset id="source" class="source">
+        <legend>Srouce</legend>
+      </fieldset>
+    </section>
+    
+    <section class="right">
+      <fieldset>
+        <legend>Template</legend>
+        <pre><code id="template"></code></pre>
+      </fieldset>
+    </section>
+    
+    <div class="clear"></div>
+    
+    <section class="left">
+      <fieldset>
+        <legend>Initialize</legend>
+        <pre><code id="initialize"></code></pre>
+      </fieldset>
+    </section>
+    
+    <section class="right">
+      <fieldset>
+        <legend>Render</legend>
+        <pre><code id="render"></code></pre>
+      </fieldset>
+    </section>
+    <div class="clear"></div>
+    
+    <section>
+      <fieldset class="report">
+        <legend>Result <span id="timer"></span></legend>
+        <div id="result"></div>
+      </fieldset>
+    </section>
+    
+    <script>
+      (function(window, $, require) {
+        'use strict';
+        require(['modules', 'sources', 'templates'], function() {
+          var TemplateHandler = window.TemplateHandler, Source = window.Source, Timer = window.Timer,
+              handler = new TemplateHandler('all');
+
+          $('#source').append(Source.genControler());
+          $('#button').append(
+            $.map(handler.engines, function(item) {
+              return $('<button/>', { 
+                text: item.engine.name, 
+                click: function() {
+                  var html, timer, templateTxt;
+                  html = '';
+                  timer = Timer.compute(function() { html = handler.execute(item.key); }, false);
+                  $('#template').text($.isXMLDoc(item.engine.template) ? (window.ActiveXObject) ? item.engine.template.xml : (new window.XMLSerializer()).serializeToString(item.engine.template) : item.engine.template.toString());
+                  $('#initialize').text(item.engine.originalInit.toString());
+                  $('#render').text(item.engine.originalRender.toString());                
+                  $('#timer').html(' (<strong>' + timer.during + '</strong> ms)');
+                  /*$('#source').html('Source: <a target="_blank" href="' + sources[item.engine.dataType].url + '">' + sources[item.engine.dataType].type + '</a>');*/
+                  $('#result').slideUp('fast', function() { $(this).html(html).slideDown(); });
+                  $(this).addClass('active').siblings('button').removeClass('active');
+                }
+              });
+            })
+          );
+        });
+      } (window, jQuery, require));
+    </script>
+
+  </body>
+
+  
+</html>

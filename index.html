@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="ie6 ielt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7 ielt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8">       <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="ie9">       <![endif]-->
+<!--[if !(IE) ]><!--> <html lang="en"> <!--<![endif]-->
+
+  <head>
+    <meta charset="utf-8" />
+    <title>Template Engine - Performance Testing</title>
+    
+    <link rel="stylesheet" href="./style/reset.css" media="screen" />
+    <link rel="stylesheet" href="./style/main.css" media="screen" />
+    <script src="./library/jquery.js"></script>
+    <script data-main="./module/" src="./library/require.js"></script>
+
+    <!--[if lt IE 9]>
+      <script src="./library/iesucks/html5shiv.min.js"></script>
+    <![endif]-->
+  </head>
+  
+  <body>
+    <a href="demo.html" target="_blank" class="button green nav">Sample Testing</a>
+    <h1>Template Engine - Performance Testing</h1>
+    <fieldset id="source" class="source">
+      <legend>Srouce</legend>
+    </fieldset>
+    
+    <fieldset>
+      <legend>Testing</legend>
+      <button id="startBtn" class="big">Begin</button>
+    </fieldset>
+    
+    <fieldset class="report">
+      <legend>Report</legend>
+      <table id="reportTbl">
+        <thead>
+          <tr>
+            <th id="sortByName" class="cursor">Method</th>
+            <th id="sortByTime" class="cursor">During Time</th>
+          </tr>
+        </thead>
+        <tbody id="container">
+        </tbody>
+      </table>
+    </fieldset>
+    
+    <script>
+      (function(window, $, require) {
+        'use strict';
+        
+        require(['modules', 'sources', 'templates'], function() {
+          var TemplateHandler = window.TemplateHandler, Timer = window.Timer, Source = window.Source,
+              handler, i, len, d, $container, $tr, initReport, renderReport, sortByTime, sortByName;
+          
+          $container = $('#container');          
+          handler = new TemplateHandler('all');          
+          initReport = function() {
+            var i, len, engine, key;
+            for (i = 0, len = handler.engines.length; i < len; i += 1) {
+              handler.engines[i].engine.$rptTr = $('<tr><td>' + handler.engines[i].engine.name + '</td><td class="during"></td></tr');
+              handler.engines[i].engine.$rptTr.appendTo($container);
+            }
+          };
+          renderReport = function() {
+            var i, len, engine, key;
+            $container.find('.during').empty().addClass('progress');
+            window.setTimeout(function(){
+              var compute = function(engine, key, $tr) {
+                window.setTimeout(function() {
+                  var timer = Timer.compute(function() { handler.execute(key); }, true);
+                  $tr.data('data-timer', timer).data('data-engine', engine)
+                    .find('.during').html(timer.error ? '<strong>error</strong>' : timer.during + ' ms').removeClass('progress');
+                }, 10);
+              };
+              for (i = 0, len = handler.engines.length; i < len; i += 1) {
+                compute(handler.engines[i].engine, handler.engines[i].key, handler.engines[i].engine.$rptTr);
+              }
+              //sortByTime();
+            }, 500);
+          };
+          sortByTime = function() {
+            $container.find('tr').sort(function(a, b) {
+              var timerA = $(a).data('data-timer'), timerB = $(b).data('data-timer');
+              if (!timerA || !timerB) { return 0; }
+              if (timerA.error) { return 1; }
+              if (timerB.error) { return -1;}
+              if (timerA.during === timerB.during) { return 0;}
+              return (timerA.during > timerB.during) ? 1 : -1;
+            }).appendTo($container);
+          };
+          sortByName = function() {
+            $container.find('tr').sort(function(a, b) {
+              var atxt = $(a).text(), btxt = $(b).text(), i, ach, bch, anum, bnum;
+              for (i = 0, ach = atxt[i], bch = btxt[i]; ach && bch; i += 1) {
+                if (ach !== bch) {
+                  anum = Number(ach); 
+                  bnum = Number(bch);
+                  return (anum === ach && bnum === bch) ? anum - bnum : (ach > bch) ? 1 : -1;
+                }
+              }
+              return atxt.length - btxt.length;
+            }).appendTo($container);
+          };
+          initReport();
+          $('#startBtn').click(renderReport);
+          $('#sortByTime').click(sortByTime);
+          $('#sortByName').click(sortByName);
+          $('#source').append(Source.genControler());
+        });
+      }(window, jQuery, require));
+    </script>
+
+  </body>
+
+  
+</html>

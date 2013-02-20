@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <header>My CD Collection</header>
+  <catalog>
+    <cd>
+      <type>music</type>
+      <title>Lord of the Rings Vol.1</title>
+      <artist>Bob Dylan</artist>
+      <year>00001</year>
+    </cd>
+    <cd>
+      <type>opera</type>
+      <title>Lord of the Rings Vol.2</title>
+      <artist>Bob Dylan</artist>
+      <year>00002</year>
+    </cd>
+    <cd>
+      <type>sport</type>
+      <title>Lord of the Rings Vol.3</title>
+      <artist>Bob Dylan</artist>
+      <year>00003</year>
+    </cd>
+    <cd>
+      <type>movie</type>
+      <title>Lord of the Rings Vol.4</title>
+      <artist>Bob Dylan</artist>
+      <year>00004</year>
+    </cd>
+    <cd>
+      <type>music</type>
+      <title>Lord of the Rings Vol.5</title>
+      <artist>Bob Dylan</artist>
+      <year>00005</year>
+    </cd>
+    <cd>
+      <type>opera</type>
+      <title>Lord of the Rings Vol.6</title>
+      <artist>Bob Dylan</artist>
+      <year>00006</year>
+    </cd>
+    <cd>
+      <type>sport</type>
+      <title>Lord of the Rings Vol.7</title>
+      <artist>Bob Dylan</artist>
+      <year>00007</year>
+    </cd>
+  </catalog>
+</data>

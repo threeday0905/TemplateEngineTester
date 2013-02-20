@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0"
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <xsl:template match="/">
+    <h1><xsl:value-of select="data/header"/></h1>
+    <ul>
+      <xsl:for-each select="data/catalog/cd">
+        <li>
+          <xsl:attribute name="class">
+            <xsl:value-of select="type" />
+          </xsl:attribute>
+          <mark><xsl:value-of select="year" /></mark> -
+          <span><xsl:value-of select="title" /></span> -
+          <span><xsl:value-of select="artist" /></span>
+        </li>
+      </xsl:for-each>
+    </ul>
+  </xsl:template>
+</xsl:stylesheet>

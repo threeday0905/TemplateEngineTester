@@ -1,0 +1,11 @@
+﻿<h1><%=data.header%></h1>
+<ul>
+  <%for(var i=0;i<data.catalog.length;i++){%>
+  <%var cd=data.catalog[i];%>
+    <li class="<%= cd.type%>">
+      <mark><%= cd.year%></mark> -
+      <span><%= cd.title%></span> -
+      <span><%= cd.artist%></span>
+    </li>
+  <%}%>
+</ul>

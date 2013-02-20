@@ -1,0 +1,8 @@
+﻿<h1>${header}</h1>
+<ul>
+  {{each catalog}}
+    <li class="${type}">
+      <mark>${year}</mark> - <span>${title}</span> - <span>${artist}</span>
+    </li>
+  {{/each}}
+</ul>

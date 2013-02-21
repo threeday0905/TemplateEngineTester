@@ -39,7 +39,7 @@
     <section class="right">
       <fieldset>
         <legend>Template</legend>
-        <pre><code id="template"></code></pre>
+        <code id="template"></code>
       </fieldset>
     </section>
     
@@ -48,14 +48,14 @@
     <section class="left">
       <fieldset>
         <legend>Initialize</legend>
-        <pre><code id="initialize"></code></pre>
+        <code id="initialize"></code>
       </fieldset>
     </section>
     
     <section class="right">
       <fieldset>
         <legend>Render</legend>
-        <pre><code id="render"></code></pre>
+        <code id="render"></code>
       </fieldset>
     </section>
     <div class="clear"></div>
@@ -72,8 +72,10 @@
         'use strict';
         require(['modules', 'sources', 'templates'], function() {
           var TemplateHandler = window.TemplateHandler, Source = window.Source, Timer = window.Timer,
-              handler = new TemplateHandler('all');
-
+              handler = new TemplateHandler('all'),
+              fixCodeWidth = function() {
+                $('code').empty().each(function() { $(this).width($(this).width());});
+              };
           $('#source').append(Source.genControler());
           $('#button').append(
             $.map(handler.engines, function(item) {
@@ -85,7 +87,7 @@
                   timer = Timer.compute(function() { html = handler.execute(item.key); }, false);
                   $('#template').text($.isXMLDoc(item.engine.template) ? (window.ActiveXObject) ? item.engine.template.xml : (new window.XMLSerializer()).serializeToString(item.engine.template) : item.engine.template.toString());
                   $('#initialize').text(item.engine.originalInit.toString());
-                  $('#render').text(item.engine.originalRender.toString());                
+                  $('#render').text(item.engine.originalRender.toString());
                   $('#timer').html(' (<strong>' + timer.during + '</strong> ms)');
                   /*$('#source').html('Source: <a target="_blank" href="' + sources[item.engine.dataType].url + '">' + sources[item.engine.dataType].type + '</a>');*/
                   $('#result').slideUp('fast', function() { $(this).html(html).slideDown(); });
@@ -94,6 +96,8 @@
               });
             })
           );
+          fixCodeWidth();
+          $(window).resize(function() {fixCodeWidth();});
         });
       } (window, jQuery, require));
     </script>

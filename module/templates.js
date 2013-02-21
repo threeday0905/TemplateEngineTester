@@ -5,8 +5,7 @@
     xml_xslt: new Engine('xml_xslt', '[XML] XSLT Process', 'xml', function() {
       var that = this;
       $.ajax({ async: false, dataType: 'script', url: './library/template/jquery.xslt.min.js'} );
-      $.ajax({ async: false, dataType: 'xml',   url: './resource/template/xml_xslt.xml'} )
-        .done(function(data) { that.template = data; });
+      $.ajax({ async: false, dataType: 'xml',   url: './resource/template/xml_xslt.xml'} ).done(function(data) { that.template = data; });
     },function(source, template) {
       var result;
       $.xslt({xml: source, xsl: template, callback: function(data) { result = data; }});

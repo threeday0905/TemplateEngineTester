@@ -29,21 +29,21 @@ Encompasses Solution
 ====================
 I had added some client-side html render solution samples on this project as below list:
 
-[XML]
-  1. XSLT Process
-  2. jQuery + native code
-
-[Native Code]
-  1. Array join
-  2. String concat
-  3. String plus
-
-[Library]
-  1. handlebars.js
-  2. underscore.js
-  3. dust.js
-  4. mustache.js
-  5. pure.js
-  6. doT.js
-  7. jQote2.js
-  8. jQuery template.js
+  [XML]
+    1. XSLT Process
+    2. jQuery + native code
+  
+  [Native Code]
+    1. Array join
+    2. String concat
+    3. String plus
+  
+  [Library]
+    1. handlebars.js
+    2. underscore.js
+    3. dust.js
+    4. mustache.js
+    5. pure.js
+    6. doT.js
+    7. jQote2.js
+    8. jQuery template.js
